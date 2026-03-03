@@ -58,6 +58,13 @@ export default function Home() {
   const handleAddBoss = (e: React.FormEvent) => {
     e.preventDefault();
     if (!bossName.trim() || !bossPercentage.trim()) return;
+
+    const isBossNameExists = state.bosses.some(boss => boss.name.toLowerCase() === bossName.trim().toLowerCase());
+
+    if (isBossNameExists) {
+      toast.error('Patrão com este nome já existe.');
+      return;
+    }
     
     const percentageNum = parseFloat(bossPercentage);
     if (isNaN(percentageNum) || percentageNum < 0 || percentageNum > 100) return;
